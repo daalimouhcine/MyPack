@@ -11,6 +11,7 @@ public class TripEntity {
     private int id;
     private String start;
     private String end;
+    // relations with other tables
 
 
     public int getId() {
