@@ -5,7 +5,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./target:/opt/jboss/wildfly/standalone/deployments/
+      - ./target/MyPack-1.0-SNAPSHOT.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war
 
   mysqldb:
     image: mariadb:latest
