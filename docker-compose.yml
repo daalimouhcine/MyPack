@@ -3,35 +3,31 @@ services:
     image: quay.io/wildfly/wildfly
     container_name: jboss
     ports:
-      - 8080:8080
+      - 80:8080
     volumes:
-      - ./target:/opt/jboss/wildfly/standalone/deployments/
-
+      - ./target/MyPack-1.0-SNAPSHOT.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war
+    depends_on:
+      - mysqldb
   mysqldb:
-    image: mariadb:latest
+    image: mysql:5.7
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_DATABASE: mypack
-      MYSQL_PASSWORD: 123456789
+      MYSQL_ROOT_PASSWORD: 123456789
     volumes:
-      - dbdata:/var/lib/mysql
+      - C:\data:/var/lib/mysql
     ports:
       - 3306:3306
-
   phpmyadmin:
     image: phpmyadmin
     container_name: pma
-    links:
+    depends_on:
       - mysqldb
     environment:
        PMA_HOST: mysqldb
        PMA_PORT: 3306
+       PMA_USER: root
+       PMA_PASSWORD: 123456789
     restart: always
     ports:
       - 8081:80
-
-volumes:
-  dbdata:
-
-
